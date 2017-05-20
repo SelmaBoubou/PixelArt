@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QGraphicsScene>
+
 namespace Ui {
 class MainWindow;
 }
@@ -19,7 +19,10 @@ private slots:
     void on_Load_clicked();
 
     void on_Save_clicked();
-    // source: http://creative-punch.net/2014/02/opening-displaying-saving-images-qt/
+
+
+    void on_Pixelized_clicked();
+
 
 
 public:
@@ -28,6 +31,10 @@ private:
 
     Ui::MainWindow *ui;
     QImage *pimg; //pointer to my image
+    QPixmap *pixmap;
+    int size;
+
+
 
 
 };

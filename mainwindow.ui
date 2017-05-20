@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>581</width>
-    <height>414</height>
+    <width>1118</width>
+    <height>1136</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="Load">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>230</y>
+      <x>780</x>
+      <y>280</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -30,34 +30,34 @@
    <widget class="QLabel" name="FilePathLabel">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>330</y>
+      <x>50</x>
+      <y>10</y>
       <width>381</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>FilePath</string>
     </property>
    </widget>
    <widget class="QLabel" name="displayLabel">
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>130</y>
-      <width>261</width>
-      <height>161</height>
+      <y>100</y>
+      <width>321</width>
+      <height>241</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>Display</string>
     </property>
    </widget>
    <widget class="QPushButton" name="Save">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>190</y>
+      <x>780</x>
+      <y>320</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -66,17 +66,82 @@
      <string>Save </string>
     </property>
    </widget>
-   <widget class="QLabel" name="SavePathLabel">
+   <widget class="QPushButton" name="Pixelized">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>20</y>
-      <width>271</width>
-      <height>20</height>
+      <x>780</x>
+      <y>360</y>
+      <width>75</width>
+      <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>Pixelized</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="pixelizedLabel">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>90</y>
+      <width>311</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Pixelized</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="value">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>420</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="LoadMultiple">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>400</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>LoadMultiple</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Draw_Pixels">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>430</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Draw_Pixels</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>390</y>
+      <width>391</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Drawing Pixels</string>
     </property>
    </widget>
   </widget>
@@ -85,7 +150,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>581</width>
+     <width>1118</width>
      <height>21</height>
     </rect>
    </property>
