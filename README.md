@@ -1,7 +1,7 @@
 ## Pixel Art Rendering Project
 
 This is my final project for the Computer Science module, I study C ++ using Qt.
-Student in Bachelor in Computer Vision, for the second semester I had to choose between two projects for a computer science class.                 Which I choose the Pixel Art Rendering.
+I am a student in Bachelor in Computer Vision, for the second semester I had to choose between two projects for a computer science class.                 Which I choose the Pixel Art Rendering.
 For my project management I had to use https://www.Trello.com to organize my project and make my supervisor able to see my progress.You can have a look on my trello board in the link below under link.
 
 This project consist in 3 principles:
@@ -22,9 +22,9 @@ Selma Boudisssa
 
 
 ## Project Supervisor
-mR Yohan Fougerolle
+Mr Yohan Fougerolle
 
 ## Acknowledgments
-Thanks to my supervisor and my classmates which helped me a lot in the entire project.
+Thanks to my supervisor and my classmates Khoi Pham Nhat, Meldrick Ferdinand Reimmer and Mohamed Ali who helped me a lot in this project.
 
 
