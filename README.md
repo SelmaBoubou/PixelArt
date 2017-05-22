@@ -1,9 +1,8 @@
-# PixelArt
-This is my final project for the Computer Science module. I study C ++ under Qt
-
 ## Pixel Art Rendering Project
+
+This is my final project for the Computer Science module, I study C ++ using Qt.
 Student in Bachelor in Computer Vision, for the second semester I had to choose between two projects for a computer science class.                 Which I choose the Pixel Art Rendering.
-For my project management I had to use https://www.Trello.com to organize my project and make my supervisor able to see my progress.You can have a look on my trello board in the link below under Project Management.
+For my project management I had to use https://www.Trello.com to organize my project and make my supervisor able to see my progress.You can have a look on my trello board in the link below under link.
 
 This project consist in 3 principles:
 1. Load an image located anywhere on my hard drive, display it and save an image wherever I want.
@@ -13,17 +12,17 @@ This project consist in 3 principles:
 3. Drawing pixels, this is the last part of this project I am supposed to transform the pixels into another form.
 
 
-## Project management
+## Link
 1. My Trello Board
 https://trello.com/b/R1xYcKze/project-topics
 
-## Authors
+## Author
 
 Selma Boudisssa
 
 
 ## Project Supervisor
-Yohan Fougerolle
+mR Yohan Fougerolle
 
 ## Acknowledgments
 Thanks to my supervisor and my classmates which helped me a lot in the entire project.
