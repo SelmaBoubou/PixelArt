@@ -25,6 +25,6 @@ Selma Boudisssa
 Mr Yohan Fougerolle
 
 ## Acknowledgments
-Thanks to my supervisor and my classmates Khoi Pham Nhat, Meldrick Ferdinand Reimmer and Mohamed Ali who helped me a lot in this project.
+Thanks to my supervisor and my classmates Khoi Pham Nhat, Meldrick Ferdinand Reimmer and Antoine Merlet who helped me a lot in this project.
 
 
