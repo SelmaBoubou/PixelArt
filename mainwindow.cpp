@@ -3,8 +3,12 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QFileDialog>
-#include <QDebug>
 #include <QImage>
+#include <QDir>
+#include <QColor>
+
+
+
 
 using namespace std;
 
@@ -13,11 +17,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    size = 50; // to define the size of the pixel block that will be pixelizing rendered
+
+    //initialisation of my pointers
+    pixelizedimage = new QImage;
+    pimg = new QImage;
+    finalimage = new QImage;
+
+
 }
 
 MainWindow::~MainWindow()
 {
+    // delete my pointers
+    delete pixelizedimage;
+    delete pimg;
+   delete finalimage;
     delete ui;
 }
 
@@ -27,18 +41,13 @@ void MainWindow::on_Load_clicked()
                 this,
                 "Open a file",
                 QString(),
-                "Images (*.gif *.jpig *.jpg)");
+                "Images (*.png *.jpig *.jpg)");//to open images in any formats.
 
     // I work with my teammate Meldrick Reimmer
 
     pimg = new QImage(filePath);
 
     ui->FilePathLabel->setText(filePath);
-
-    pixmap = new QPixmap (filePath);
-
-    //pimg = pixmap->toImage();
-
 
 
 
@@ -48,16 +57,25 @@ void MainWindow::on_Load_clicked()
     h=ui->displayLabel->height();
 
     // with scale preserved
-    ui->displayLabel->setPixmap(pixmap->scaled(w,h, Qt :: KeepAspectRatio));
+    ui->displayLabel->setPixmap(QPixmap::fromImage(pimg->scaled(w,h, Qt :: KeepAspectRatio)));
 }
 
 
 
-// My teacher provide me help for this save button
+// My teacher provide me help for this save button I improve it to be able to save anywhere I want.
 void MainWindow::on_Save_clicked()
 {
+    QString savePath = QFileDialog :: getSaveFileName(
+                this,
+                "Save a file",
+                QString(),
+                "Images (*.gif *.jpig *.jpg)");
 
-    pimg->save("newimage3.png");
+    ui->SavePathLabel->setText(savePath);
+
+    finalimage->save(savePath);
+
+
 
 
 }
@@ -65,60 +83,186 @@ void MainWindow::on_Save_clicked()
 
 void MainWindow::on_Pixelized_clicked()
 {
-    // My classmate Khoi Pham help me for this part of the code about the pixelization
 
-    for(int i = 0; i < pimg->width(); i += size)
-        for(int j = 0; j < pimg->height(); j += size){
+    pixelizedimage = new QImage (pimg->scaled(valueimagesize,valueimagesize,Qt::KeepAspectRatio));
+    // ui->pixelizedLabel->setText(pixelizedimage);
 
-            int r=0,g=0,b=0,a=0;
-
-            // loop through every pixels of the pixel cube
-            for(int k = 0; k < size; ++k)
-                for(int l = 0; l < size; ++l){
-
-                    // stopping criterion in case the last cube
-                    // that compute data out of image boundary
-                    if (i+k < pimg->width() && j+l <pimg->height()) {
-
-                        // convert the QRgb to QColor for color extracting process
-                        QColor color(pimg->pixel(i+k,j+l));
-
-                        // extract color channels using QColor built-in functions
-                        r += color.red();
-                        g += color.green();
-                        b += color.blue();
-                        a += color.alpha();
-
-
-                    }
-                }
-
-            // calculate mean color value of every channels
-            r /= size*size; g /= size*size; b /= size*size; a /= size*size;
-
-            // combine 4 channels into QRgb data type
-            QRgb meanColor = qRgba(r,g,b,a);
-
-            // replace the pixel of the cube by the new color (the same loop above)
-            for(int k = 0; k < size; ++k)
-                for(int l = 0; l < size; ++l)
-
-                    // same stopping criterion as above
-                    if (i+k < pimg->width() && j+l <pimg->height())
-                        pimg->setPixel(i+k, j+l, meanColor);
-
-        }
-
-    //creation of the pixelizedLabel new label to display the result of the pixelization
-    //get the label size
-    int w,h;
-    w=ui->pixelizedLabel->width();
-    h=ui->pixelizedLabel->height();
-    QPixmap pixel = QPixmap::fromImage(*pimg); // I use *pimg to dereference my pointer to not overread or overwrite the same image
+    // get the label size
+    int w, h;
+    w=ui->displayLabel->width();
+    h=ui->displayLabel->height();
 
     // with scale preserved
-    ui->pixelizedLabel->setPixmap(pixel.scaled(w,h, Qt::KeepAspectRatio));
+    ui->pixelizedLabel->setPixmap(QPixmap::fromImage(pixelizedimage->scaled(w,h, Qt::KeepAspectRatio)));
 
 }
 
 
+
+void MainWindow::on_LoadMultiple_clicked()
+{
+
+    // StackOverflow, User : Apin, Date : Mar 15 2016
+    // explanation : Here we will load all the image that we want to store into te database
+    QString adressPath = QFileDialog::getExistingDirectory(this, tr("Select DB folder"));
+    QDir dir(adressPath);
+    QStringList filter;
+    filter << QLatin1String("*.png");
+    filter << QLatin1String("*.jpeg");
+    filter << QLatin1String("*.jpg");
+    dir.setNameFilters(filter);
+    QFileInfoList filelistinfo = dir.entryInfoList();
+    QStringList fileList;
+    // END OF SOURCE
+
+    // Go through every file
+
+    foreach (const QFileInfo& fileinfo, filelistinfo) {
+        QString imageFile = fileinfo.absoluteFilePath(); // variable which contain the path of the current image
+        //imageFile is the image path, just put your load image code here
+
+        // My classemate Antoine Merlet provide me help for this part
+
+        QImage img(imageFile); // creation of a temporary image available only in this part of the code.
+
+        img = img.scaled( valuepixelsize, valuepixelsize, Qt::KeepAspectRatio); // creation of the pixelized image
+        QImage *newimage = new QImage(img); // creation of a pointer of the new image
+        resolutiondatabase.push_back(newimage); // store into the database
+
+    }
+
+}
+
+QColor* MainWindow::mean(QImage *img){ // pointer to my image which return a pointer to QColor
+    // I use my classemate Antoine Merlet code for this part.
+
+    // get image size
+    int h = img->height();
+    int w = img->width();
+
+    // initilalization of the RGB
+    int sumR = 0;
+    int sumG = 0;
+    int sumB = 0;
+
+    // Going through the image
+    for ( int i = 0; i < w; i++){
+        for ( int j = 0; j < h; j++){
+
+            // get the pixel value
+            QColor pixelvalue( img->pixel( i, j));
+
+
+            sumR += pixelvalue.red();
+            sumG += pixelvalue.green();
+            sumB += pixelvalue.blue();
+        }
+    }
+    // compute the mean.
+    sumR /= h * w;
+    sumG /= h * w;
+    sumB /= h * w;
+
+    // creating the resulting color as a QRgb
+    return new QColor( sumR, sumG, sumB);
+}
+
+
+QImage* MainWindow::optimizationpixels(const QColor& colorofpixel)
+{
+
+    // Explanation: In this part we have to find the best image corresponding to each pixels. Using the function mean above.
+
+    // Counters for RGB and Total
+    int differenceR, differenceG, differenceB, differenceT;
+
+    // goal is the value to achieve for the best optimization
+    int goal = 255 * 3;
+    // we choose 255 cause the value of a pixel is between 0 and 255 and we multiplie by 3 cause 3 channels for the RGB
+
+    // The image which obtain the best result in term of matching with the pixels
+    QImage* matchingimage;
+
+    // iterator which choose the image in the database
+    for (std::vector<QImage*>::iterator it = resolutiondatabase.begin(); it != resolutiondatabase.end() ; it++) {
+
+        // Actual image
+        QImage* actualImage = *it;
+        QColor* actualMean = mean(actualImage);
+
+        // Compute the absolute mean difference
+        differenceR = abs(colorofpixel.red() -  actualMean->red()); // absolute difference value of the given pixels and the mean of the pixels
+        differenceG = abs(colorofpixel.green() - actualMean->green());
+        differenceB = abs(colorofpixel.blue() -  actualMean->blue());
+
+        // Addition of the total absolte difference
+        differenceT = differenceR + differenceG + differenceB;
+
+        // Check if new best result
+        if (differenceT <= goal) {
+            matchingimage = actualImage;
+
+            // Do better than the previous one
+            goal = differenceT;
+        }
+    }
+    return matchingimage; // return the image who correspond the most
+}
+
+void MainWindow::on_Draw_Pixels_clicked()
+{
+
+
+    // get pixelized image size
+    int h = pixelizedimage->height();
+    int w = pixelizedimage->width();
+
+
+    // initialization of the matching image result for a given pixel
+    QImage* matchingimageResult ;
+
+    // Prepare the result image with good size
+   finalimage = new QImage( w * valuepixelsize, h * valuepixelsize, QImage::Format_RGB32);
+
+    // for every pixel in the pixelizedimage
+    for ( int i = 0; i < w; i++){
+        for ( int j = 0; j < h; j++){
+
+            // Get the actual pixel
+            QColor actualpixel(pixelizedimage->pixel(i,j));
+
+            // Get the best result in the DataBase
+            matchingimageResult = optimizationpixels(actualpixel);
+
+            // Take all the pixels of the matching images and put it in the good place on the final image
+
+            // For every pixel in the resolutiondatabase
+            for (int k = 0; k< matchingimageResult->width();k++){
+                for (int l = 0; l < matchingimageResult->height(); l++){
+
+                    // actual pixel
+                    QColor actualMatch =matchingimageResult->pixel(k,l);
+
+                   // copy on the output finalimage the actual pixel above.
+                   finalimage->setPixel(i * valuepixelsize + k, j * valuepixelsize + l, actualMatch.rgb());
+                }
+            }
+        }
+    }
+
+    ui->label->setPixmap(QPixmap::fromImage(*finalimage)); // display the final image, I dereference my pointer
+}
+
+void MainWindow::on_savepixelized_clicked()
+{
+    QString savePath1 = QFileDialog :: getSaveFileName(
+                this,
+                "Save a file",
+                QString(),
+                "Images (*.png *.jpig *.jpg)");
+
+    //ui->SavePathLabel->setText(savePath);
+
+    pixelizedimage->save(savePath1);
+
+}

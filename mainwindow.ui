@@ -57,13 +57,13 @@
     <property name="geometry">
      <rect>
       <x>780</x>
-      <y>320</y>
+      <y>460</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Save </string>
+     <string>Save Art</string>
     </property>
    </widget>
    <widget class="QPushButton" name="Pixelized">
@@ -142,6 +142,32 @@
     </property>
     <property name="text">
      <string>Drawing Pixels</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="SavePathLabel">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>10</y>
+      <width>511</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SavePath</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="savepixelized">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>320</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save Pixel</string>
     </property>
    </widget>
   </widget>
